@@ -26,9 +26,14 @@ services:
       ALLOW_FLIGHT: "TRUE"
       USE_NATIVE_TRANSPORT: "TRUE"
       STOP_SERVER_ANNOUNCE_DELAY: 60
+      # WHITELIST: "player1,player2"
       GUI: "FALSE"
       MODS: |
       SERVER_PORT: "25565"
+    #deploy:
+    #  resources:
+    #    limits:
+    #      memory: 8G
     ports:
       - "25565:25565/tcp"
       - "25575:25575/udp"
@@ -40,5 +45,5 @@ volumes:
     minecraft-server:
         driver_opts:
             type: nfs
-            o: addr=${NFS_ADDR},rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14,nfsvers=4
+            o: addr=192.168.10.201,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14,nfsvers=4
             device: ":/Volumes/minecraft-server/"
