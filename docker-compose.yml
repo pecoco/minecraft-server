@@ -13,7 +13,7 @@ services:
       JVM_OPTS: "-XX:MaxRAMPercentage=75"
       TYPE: "FABRIC"
       EULA: "TRUE"
-      VERSION: 1.21 # a default is "LATEST"
+      VERSION: 1.21.11 # a default is "LATEST"
       MOTD: "The World of Fabric Server with Crossplay"
       MAX_PLAYERS: 5
       MAX_WORLD_SIZE: 10000
