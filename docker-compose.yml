@@ -3,15 +3,11 @@ services:
   # =================================================== #
   #  Fabric Server                                      #
   # =================================================== #
-
   fabric:
     container_name: mc_fabric
     image: itzg/minecraft-server
     tty: true
     stdin_open: true
-    depends_on:
-      init-nfs:
-        condition: service_completed_successfully
     environment:
       ENABLE_ROLLING_LOGS: "TRUE"
       JVM_OPTS: "-XX:MaxRAMPercentage=75"
@@ -45,22 +41,9 @@ services:
       - minecraft-server:/data
       - /etc/timezone:/etc/timezone:ro
     restart: unless-stopped
-  # The helper container that creates the folder automatically
-  init-nfs:
-    image: alpine
-    volumes:
-      - nfs-root:/mnt/nfs
-    command: mkdir -p /mnt/nfs/minecraft-server
-
 volumes:
-  nfs-root:
-    driver: local
-    driver_opts:
-      type: nfs
-      o: addr=192.168.10.201,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14,nfsvers=4
-      device: ":/Volumes/"
-  minecraft-server:
-    driver_opts:
-      type: nfs
-      o: addr=192.168.10.201,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14,nfsvers=4
-      device: ":/Volumes/minecraft-server/"
+    minecraft-server:
+        driver_opts:
+            type: nfs
+            o: addr=192.168.10.201,rw,noatime,rsize=8192,wsize=8192,tcp,timeo=14,nfsvers=4
+            device: ":/Volumes/minecraft-server/"
