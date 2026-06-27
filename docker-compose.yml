@@ -35,8 +35,14 @@ services:
     #    limits:
     #      memory: 8G
     ports:
-      - "25565:25565/tcp"
-      - "25575:25575/udp"
+      - target: 25565
+        published: 25565
+        protocol: tcp
+        mode: ingress
+      - target: 25575
+        published: 25575
+        protocol: udp
+        mode: ingress
     volumes:
       - minecraft-server:/data
       - /etc/timezone:/etc/timezone:ro
